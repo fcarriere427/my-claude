@@ -2,6 +2,20 @@
   <div class="app">
     <header>
       <h1>Claude Rasp</h1>
+      <div v-if="totalTokenUsage.input_tokens > 0 || totalTokenUsage.output_tokens > 0" class="token-counter">
+        <div class="token-counter-item">
+          <span class="token-counter-label">Total Tokens: </span>
+          <span class="token-counter-value">{{ totalTokenUsage.input_tokens + totalTokenUsage.output_tokens }}</span>
+        </div>
+        <div class="token-counter-item">
+          <span class="token-counter-label">Entrée: </span>
+          <span class="token-counter-value">{{ totalTokenUsage.input_tokens }}</span>
+        </div>
+        <div class="token-counter-item">
+          <span class="token-counter-label">Sortie: </span>
+          <span class="token-counter-value">{{ totalTokenUsage.output_tokens }}</span>
+        </div>
+      </div>
     </header>
     <main>
       <ChatWindow :messages="messages" :isLoading="isLoading" />
@@ -27,7 +41,11 @@ export default {
   data() {
     return {
       messages: [],
-      isLoading: false
+      isLoading: false,
+      totalTokenUsage: {
+        input_tokens: 0,
+        output_tokens: 0
+      }
     };
   },
   mounted() {
@@ -64,6 +82,10 @@ export default {
           const lastAssistantMessage = updatedHistory.filter(msg => msg.role === 'assistant').pop();
           if (lastAssistantMessage) {
             lastAssistantMessage.token_usage = response.data.token_usage;
+            
+            // Mettre à jour le compteur total
+            this.totalTokenUsage.input_tokens += response.data.token_usage.input_tokens;
+            this.totalTokenUsage.output_tokens += response.data.token_usage.output_tokens;
           }
         }
         
@@ -114,6 +136,33 @@ header {
   color: white;
   padding: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.token-counter {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.token-counter-item {
+  display: flex;
+  align-items: center;
+}
+
+.token-counter-label {
+  margin-right: 0.3rem;
+  opacity: 0.8;
+}
+
+.token-counter-value {
+  font-weight: bold;
 }
 
 main {
