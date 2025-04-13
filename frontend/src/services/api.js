@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // Création d'une instance axios avec la configuration de base
 const api = axios.create({
-  baseURL: process.env.VUE_APP_API_URL || 'http://localhost:8000/api',
+  baseURL: 'http://localhost:8000/api', // URL directe
   timeout: 30000, // 30 secondes
   headers: {
     'Content-Type': 'application/json',
