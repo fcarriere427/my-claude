@@ -102,19 +102,19 @@ L'application sera accessible à l'adresse http://localhost:8080.
    cd claude-rasp
    ```
 
-2. Déployer le backend
+2. Déployer l'application complète
    ```bash
-   cd backend
+   chmod +x deploy.sh
    ./deploy.sh
    ```
 
-3. Déployer le frontend
-   ```bash
-   cd frontend
-   ./deploy.sh
-   ```
+   Ce script va :
+   - Mettre à jour le dépôt Git
+   - Construire et déployer le frontend
+   - Installer les dépendances backend si nécessaire
+   - Redémarrer le service backend
 
-4. Accéder à l'application à l'adresse http://claude.letsq.xyz
+3. Accéder à l'application à l'adresse http://claude.letsq.xyz
 
 ## Structure du projet
 
@@ -133,7 +133,7 @@ claude-rasp/
 │   │   │   └── claude.py     # Logique d'intégration avec API Claude
 │   │   └── config.py         # Configuration (API key, modèles, etc.)
 │   ├── requirements.txt
-│   └── deploy.sh
+│   └── deploy.sh             # Script de déploiement backend
 ├── frontend/
 │   ├── public/
 │   │   └── index.html
@@ -147,7 +147,8 @@ claude-rasp/
 │   │   └── services/
 │   │       └── api.js        # Appels au backend
 │   ├── package.json
-│   └── deploy.sh
+│   └── deploy.sh             # Script de déploiement frontend
+├── deploy.sh                 # Script de déploiement global
 └── README.md
 ```
 
@@ -188,6 +189,8 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en dol
 - Tri des modèles Claude par statut (courants d'abord) puis par coût croissant pour faciliter la sélection
 - Amélioration du formatage des coûts dans l'interface utilisateur pour une meilleure lisibilité
 - Correction du problème de duplication des messages utilisateur dans l'interface chat
+- Correction du script de déploiement qui ne se terminait pas correctement
+- Ajout d'un script de déploiement global avec gestion des erreurs
 
 ## Licence
 

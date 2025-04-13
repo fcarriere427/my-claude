@@ -30,21 +30,22 @@ my-claude/
 │   │   │   └── claude.py     # Logique d'intégration avec API Claude
 │   │   └── config.py         # Configuration (API key, etc.)
 │   ├── requirements.txt
-│   └── Dockerfile            # Optionnel
+│   └── deploy.sh             # Script de déploiement backend
 ├── frontend/
-│   ├── index.html
-│   ├── package.json
+│   ├── public/
+│   │   └── index.html
 │   ├── src/
 │   │   ├── App.vue           # Composant principal
 │   │   ├── main.js           # Point d'entrée Vue
 │   │   ├── components/
 │   │   │   ├── ChatWindow.vue
 │   │   │   ├── MessageInput.vue
-│   │   │   └── ModelSelector.vue  # Nouveau composant pour la sélection de modèle
+│   │   │   └── ModelSelector.vue  # Sélection du modèle Claude
 │   │   └── services/
 │   │       └── api.js        # Appels au backend
-│   └── public/
-│       └── style.css
+│   ├── package.json
+│   └── deploy.sh             # Script de déploiement frontend
+├── deploy.sh                 # Script de déploiement global
 └── README.md
 ```
 
@@ -94,6 +95,12 @@ my-claude/
 - [ ] Sauvegarder le modèle préféré pour les futures sessions
 - [ ] Ajouter des statistiques d'utilisation par modèle
 
+### Étape 7: Maintenance et amélioration des scripts (Semaine 6)
+- [x] Correction du script de déploiement global
+- [ ] Amélioration des scripts de surveillance et monitoring
+- [ ] Mise en place d'un système de logs centralisé
+- [ ] Automatisation des sauvegardes
+
 ## Bonnes pratiques à respecter
 - Utiliser le typage avec Python (type hints)
 - Documenter les fonctions et méthodes
@@ -111,19 +118,27 @@ my-claude/
 | 4     | Terminé |              |            |       |
 | 5     | Terminé |              |            |       |
 | 6     | En cours |              |            | Implémentation de la sélection de modèle |
-| 7     | En cours |              |            | Corrections de bugs d'interface |
+| 7     | En cours | 13/04/2025   |            | Correction des scripts de déploiement |
 
 ## Bugs corrigés
 - [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025) - Modification du service backend pour éviter d'ajouter deux fois le même message dans l'historique
 - [x] Tri des modèles par coût croissant dans le sélecteur (13/04/2025) - Mise en place d'un tri automatique dans le backend
 - [x] Correction de l'affichage du sélecteur de modèles (13/04/2025) - Modification de l'interface pour afficher tous les modèles dans une seule liste au lieu d'utiliser des optgroup
 - [x] Correction du problème d'absence de modèles dans le menu déroulant (13/04/2025) - Ajout de la propriété `current` dans le modèle Pydantic `ModelInfo` et dans la sérialisation API
+- [x] Correction du script de déploiement qui ne se terminait pas (13/04/2025) - Création d'un script global avec meilleure gestion des erreurs et statut du service
 
 ## Améliorations réalisées
 - [x] Ajout des modèles Claude 3.5 Haiku et Claude 3.7 Sonnet (13/04/2025)
 - [x] Mise à jour des tarifs selon la tarification officielle d'Anthropic (13/04/2025)
 - [x] Tri des modèles par coût croissant pour faciliter la sélection du modèle le plus économique
 - [x] Simplification de l'interface de sélection des modèles pour améliorer l'expérience utilisateur (13/04/2025)
+- [x] Mise en place d'un script de déploiement global robuste avec gestion des erreurs (13/04/2025)
+
+## Améliorations planifiées
+- [ ] Mise en place d'une fonctionnalité de sauvegarde du modèle préféré (cookie/localStorage)
+- [ ] Ajout d'un tableau de bord de statistiques (utilisation par modèle, coûts cumulés)
+- [ ] Implémentation d'un système de thèmes (clair/sombre)
+- [ ] Support pour les pièces jointes et les images (via l'API Claude)
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)

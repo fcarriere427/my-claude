@@ -33,7 +33,7 @@ CLAUDE_MODELS = [
     },
     {
         "id": "claude-3-opus-20240229",
-        "name": "Claude 3 Opus (Legacy)",
+        "name": "Claude 3 Opus",
         "description": "Modèle puissant pour les tâches complexes (/!\ très cher)",
         "pricing": {
             "input": 15.00,
