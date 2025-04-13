@@ -171,6 +171,11 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en eur
 - Statistiques d'utilisation par modèle
 - Sauvegarde du modèle préféré pour les futures sessions
 
+## Journal des correctifs
+
+### 13 avril 2025
+- Correction du problème de duplication des messages utilisateur dans l'interface chat
+
 ## Licence
 
 [MIT License](LICENSE)

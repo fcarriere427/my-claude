@@ -99,11 +99,14 @@ export default {
     },
     
     async sendMessage(message) {
-      // Ajouter le message de l'utilisateur à la conversation
-      this.messages.push({
+      // Stocker temporairement le message pour l'affichage pendant le chargement
+      const tempMessage = {
         role: 'user',
         content: message
-      });
+      };
+      
+      // Ajouter temporairement le message de l'utilisateur à la conversation
+      this.messages.push(tempMessage);
       
       // Indiquer le chargement
       this.isLoading = true;
@@ -151,6 +154,8 @@ export default {
           }
         }
         
+        // Mise à jour des messages avec l'historique complet du serveur
+        // Cela évite les doublons car le backend renvoie déjà le message utilisateur
         this.messages = updatedHistory;
       } catch (error) {
         console.error('Erreur lors de l\'envoi du message:', error);

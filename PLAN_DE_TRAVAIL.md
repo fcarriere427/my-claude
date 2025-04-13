@@ -111,6 +111,10 @@ my-claude/
 | 4     | Terminé |              |            |       |
 | 5     | Terminé |              |            |       |
 | 6     | En cours |              |            | Implémentation de la sélection de modèle |
+| 7     | En cours |              |            | Corrections de bugs d'interface |
+
+## Bugs corrigés
+- [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025)
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)
