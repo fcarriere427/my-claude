@@ -13,27 +13,61 @@ class ClaudeService:
     def __init__(self):
         """Initialise le service avec la configuration."""
         self.api_key = settings.ANTHROPIC_API_KEY
-        self.model = settings.CLAUDE_MODEL
+        self.default_model = settings.CLAUDE_MODEL
         self.api_url = "https://api.anthropic.com/v1/messages"
         self.headers = {
             "x-api-key": self.api_key,
             "anthropic-version": "2023-06-01",
             "content-type": "application/json"
         }
+        self.available_models = settings.CLAUDE_MODELS
     
-    async def send_message(self, message: str, conversation_history: Optional[List[Message]] = None) -> Dict[str, Any]:
+    def get_available_models(self) -> List[Dict[str, Any]]:
+        """
+        Récupère la liste des modèles disponibles.
+        
+        Returns:
+            Liste des modèles disponibles
+        """
+        return self.available_models
+    
+    def get_model_info(self, model_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Récupère les informations d'un modèle spécifique.
+        
+        Args:
+            model_id: Identifiant du modèle
+            
+        Returns:
+            Informations du modèle ou None si le modèle n'existe pas
+        """
+        for model in self.available_models:
+            if model["id"] == model_id:
+                return model
+        return None
+    
+    async def send_message(
+        self, 
+        message: str, 
+        conversation_history: Optional[List[Message]] = None,
+        model_id: Optional[str] = None
+    ) -> Dict[str, Any]:
         """
         Envoie un message à Claude et récupère sa réponse.
         
         Args:
             message: Le message de l'utilisateur
             conversation_history: L'historique de la conversation
+            model_id: Identifiant du modèle à utiliser (utilise le modèle par défaut si non spécifié)
         
         Returns:
             La réponse de Claude et l'historique mis à jour
         """
         if conversation_history is None:
             conversation_history = []
+        
+        # Utiliser le modèle spécifié ou le modèle par défaut
+        model = model_id if model_id else self.default_model
         
         # Conversion de l'historique au format attendu par l'API Anthropic
         messages = []
@@ -51,7 +85,7 @@ class ClaudeService:
         
         # Préparation de la requête
         payload = {
-            "model": self.model,
+            "model": model,
             "messages": messages,
             "max_tokens": 1024
         }
@@ -82,12 +116,18 @@ class ClaudeService:
             
             # Mise à jour de l'historique
             conversation_history.append(Message(role="user", content=message))
-            conversation_history.append(Message(role="assistant", content=claude_response))
+            # Ajout du modèle utilisé dans la réponse
+            conversation_history.append(Message(
+                role="assistant", 
+                content=claude_response,
+                model=model
+            ))
             
             return {
                 "response": claude_response,
                 "conversation_history": conversation_history,
-                "token_usage": token_usage
+                "token_usage": token_usage,
+                "model_used": model
             }
 
 # Instance du service pour utilisation globale

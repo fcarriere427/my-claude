@@ -32,6 +32,13 @@
       </div>
     </header>
     <main>
+      <div class="toolbar">
+        <ModelSelector 
+          :isLoading="isLoading" 
+          @model-change="handleModelChange"
+          ref="modelSelector"
+        />
+      </div>
       <ChatWindow :messages="messages" :isLoading="isLoading" />
       <MessageInput :isLoading="isLoading" @send-message="sendMessage" />
     </main>
@@ -44,13 +51,15 @@
 <script>
 import ChatWindow from './components/ChatWindow.vue';
 import MessageInput from './components/MessageInput.vue';
+import ModelSelector from './components/ModelSelector.vue';
 import api, { calculateCost } from './services/api';
 
 export default {
   name: 'App',
   components: {
     ChatWindow,
-    MessageInput
+    MessageInput,
+    ModelSelector
   },
   data() {
     return {
@@ -64,10 +73,15 @@ export default {
         inputCost: 0,
         outputCost: 0,
         totalCost: 0
-      }
+      },
+      selectedModel: null,
+      models: []
     };
   },
   mounted() {
+    // Exposer l'API pour les composants enfants
+    this.$api = api;
+    
     // Vérifier la connexion à l'API au démarrage
     api.checkHealth()
       .then(response => {
@@ -79,6 +93,11 @@ export default {
       });
   },
   methods: {
+    handleModelChange(modelId, modelData) {
+      this.selectedModel = modelData;
+      console.log('Modèle sélectionné:', modelData);
+    },
+    
     async sendMessage(message) {
       // Ajouter le message de l'utilisateur à la conversation
       this.messages.push({
@@ -90,11 +109,17 @@ export default {
       this.isLoading = true;
       
       try {
-        // Envoyer la requête à l'API
-        const response = await api.sendMessage(message, this.messages);
+        // Récupérer l'ID du modèle sélectionné
+        const modelId = this.selectedModel ? this.selectedModel.id : null;
+        
+        // Envoyer la requête à l'API avec le modèle sélectionné
+        const response = await api.sendMessage(message, this.messages, modelId);
         
         // Mettre à jour l'historique des messages avec les informations de coût
         const updatedHistory = response.data.conversation_history;
+        
+        // Récupérer le modèle utilisé
+        const modelUsed = response.data.model_used;
         
         // Ajouter les informations de token_usage au dernier message assistant
         if (response.data.token_usage) {
@@ -102,12 +127,18 @@ export default {
           if (lastAssistantMessage) {
             lastAssistantMessage.token_usage = response.data.token_usage;
             
+            // Récupérer les tarifs du modèle utilisé
+            const modelPricing = this.selectedModel ? this.selectedModel.pricing : null;
+            
             // Calculer le coût en euros
             const messageCost = calculateCost(
               response.data.token_usage.input_tokens,
-              response.data.token_usage.output_tokens
+              response.data.token_usage.output_tokens,
+              modelPricing
             );
+            
             lastAssistantMessage.cost = messageCost;
+            lastAssistantMessage.model = modelUsed;
             
             // Mettre à jour le compteur total
             this.totalTokenUsage.input_tokens += response.data.token_usage.input_tokens;
@@ -206,6 +237,12 @@ main {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.toolbar {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #eee;
+  background-color: #f8f9fa;
 }
 
 footer {

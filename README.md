@@ -13,6 +13,8 @@ Claude Rasp est un MVP (Minimum Viable Product) conçu pour permettre une conver
 - Support de la mise en forme Markdown dans les réponses
 - Indicateur de chargement pendant le traitement des requêtes
 - Affichage du coût de chaque message (nombre de tokens en entrée/sortie)
+- Sélection du modèle Claude à utiliser (Claude 3 Opus, Sonnet, Haiku, etc.)
+- Calcul des coûts adaptés selon le modèle sélectionné
 
 ## Architecture technique
 
@@ -129,7 +131,7 @@ claude-rasp/
 │   │   ├── services/
 │   │   │   ├── __init__.py
 │   │   │   └── claude.py     # Logique d'intégration avec API Claude
-│   │   └── config.py         # Configuration (API key, etc.)
+│   │   └── config.py         # Configuration (API key, modèles, etc.)
 │   ├── requirements.txt
 │   └── deploy.sh
 ├── frontend/
@@ -140,7 +142,8 @@ claude-rasp/
 │   │   ├── main.js           # Point d'entrée Vue
 │   │   ├── components/
 │   │   │   ├── ChatWindow.vue
-│   │   │   └── MessageInput.vue
+│   │   │   ├── MessageInput.vue
+│   │   │   └── ModelSelector.vue  # Sélection du modèle Claude
 │   │   └── services/
 │   │       └── api.js        # Appels au backend
 │   ├── package.json
@@ -148,14 +151,25 @@ claude-rasp/
 └── README.md
 ```
 
+## Modèles Claude disponibles
+
+L'application supporte les modèles suivants avec leurs tarifs associés (en euros par million de tokens) :
+
+| Modèle | Prix entrée | Prix sortie | Description |
+|--------|-------------|-------------|-------------|
+| Claude 3 Opus | 15.00€ | 75.00€ | Modèle le plus puissant et le plus précis |
+| Claude 3 Sonnet | 7.50€ | 24.00€ | Bon équilibre entre performance et coût |
+| Claude 3 Haiku | 0.25€ | 1.25€ | Le plus rapide, économique pour les tâches simples |
+| Claude 3.5 Sonnet | 3.00€ | 15.00€ | Version améliorée de Sonnet |
+
 ## Améliorations futures possibles
 
 - Sauvegarde des conversations
 - Authentification utilisateur
 - Paramètres de conversation configurables
-- Support de différents modèles Claude
 - Interface responsive pour mobile
-- Statistiques d'utilisation et suivi des coûts
+- Statistiques d'utilisation par modèle
+- Sauvegarde du modèle préféré pour les futures sessions
 
 ## Licence
 

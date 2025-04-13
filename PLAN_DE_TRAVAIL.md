@@ -39,7 +39,8 @@ my-claude/
 │   │   ├── main.js           # Point d'entrée Vue
 │   │   ├── components/
 │   │   │   ├── ChatWindow.vue
-│   │   │   └── MessageInput.vue
+│   │   │   ├── MessageInput.vue
+│   │   │   └── ModelSelector.vue  # Nouveau composant pour la sélection de modèle
 │   │   └── services/
 │   │       └── api.js        # Appels au backend
 │   └── public/
@@ -50,41 +51,48 @@ my-claude/
 ## Plan d'implémentation
 
 ### Étape 1: Configuration initiale et backend (Semaine 1)
-- [ ] Créer la structure du projet
-- [ ] Initialiser le projet FastAPI
-- [ ] Configurer l'environnement Python avec les dépendances nécessaires
-- [ ] Implémenter la connexion à l'API Claude (service)
-- [ ] Créer les routes API de base (nouveau message, historique)
-- [ ] Tester les endpoints avec un client REST (Postman/Insomnia)
+- [x] Créer la structure du projet
+- [x] Initialiser le projet FastAPI
+- [x] Configurer l'environnement Python avec les dépendances nécessaires
+- [x] Implémenter la connexion à l'API Claude (service)
+- [x] Créer les routes API de base (nouveau message, historique)
+- [x] Tester les endpoints avec un client REST (Postman/Insomnia)
 
 ### Étape 2: Développement du frontend (Semaine 2)
-- [ ] Initialiser le projet Vue.js
-- [ ] Créer la structure des composants
-- [ ] Développer l'interface utilisateur de base
-- [ ] Implémenter les appels API vers le backend
-- [ ] Gérer l'affichage des messages et des états (chargement, erreurs)
+- [x] Initialiser le projet Vue.js
+- [x] Créer la structure des composants
+- [x] Développer l'interface utilisateur de base
+- [x] Implémenter les appels API vers le backend
+- [x] Gérer l'affichage des messages et des états (chargement, erreurs)
 
 ### Étape 3: Fonctionnalités de conversation (Semaine 2-3)
-- [ ] Implémenter la gestion de l'historique de conversation
-- [ ] Ajouter le formatage des messages (Markdown)
-- [ ] Gérer les états de chargement pendant les appels à l'API
-- [ ] Améliorer la gestion des erreurs
-- [ ] Effectuer des tests d'intégration
+- [x] Implémenter la gestion de l'historique de conversation
+- [x] Ajouter le formatage des messages (Markdown)
+- [x] Gérer les états de chargement pendant les appels à l'API
+- [x] Améliorer la gestion des erreurs
+- [x] Effectuer des tests d'intégration
 
 ### Étape 4: Déploiement sur Raspberry Pi (Semaine 3)
-- [ ] Préparer le Raspberry Pi (OS, dépendances)
-- [ ] Configurer Nginx comme proxy inverse
-- [ ] Configurer Gunicorn pour servir l'application FastAPI
-- [ ] Déployer l'application
-- [ ] Tester les performances et résoudre les problèmes éventuels
+- [x] Préparer le Raspberry Pi (OS, dépendances)
+- [x] Configurer Nginx comme proxy inverse
+- [x] Configurer Gunicorn pour servir l'application FastAPI
+- [x] Déployer l'application
+- [x] Tester les performances et résoudre les problèmes éventuels
 
 ### Étape 5: Finalisation et optimisations (Semaine 4)
-- [ ] Optimiser les performances sur Raspberry Pi
-- [ ] Améliorer l'interface utilisateur si nécessaire
-- [ ] Effectuer des tests approfondis
-- [ ] Documenter le processus complet
-- [ ] Préparer des scripts de maintenance
-- [ ] Ajouter l'affichage du coût des messages (nombre de tokens en entrée/sortie)
+- [x] Optimiser les performances sur Raspberry Pi
+- [x] Améliorer l'interface utilisateur si nécessaire
+- [x] Effectuer des tests approfondis
+- [x] Documenter le processus complet
+- [x] Préparer des scripts de maintenance
+- [x] Ajouter l'affichage du coût des messages (nombre de tokens en entrée/sortie)
+
+### Étape 6: Amélioration des fonctionnalités (Semaine 5)
+- [x] Ajouter la sélection de modèle Claude dans l'interface
+- [x] Adapter le calcul des coûts en fonction du modèle sélectionné
+- [x] Améliorer l'affichage des informations sur les modèles et leurs coûts
+- [ ] Sauvegarder le modèle préféré pour les futures sessions
+- [ ] Ajouter des statistiques d'utilisation par modèle
 
 ## Bonnes pratiques à respecter
 - Utiliser le typage avec Python (type hints)
@@ -97,16 +105,18 @@ my-claude/
 ## Suivi de progression
 | Étape | Statut | Date de début | Date de fin | Notes |
 |-------|--------|--------------|------------|-------|
-| 1     | À faire |              |            |       |
-| 2     | À faire |              |            |       |
-| 3     | À faire |              |            |       |
-| 4     | À faire |              |            |       |
-| 5     | À faire |              |            |       |
+| 1     | Terminé |              |            |       |
+| 2     | Terminé |              |            |       |
+| 3     | Terminé |              |            |       |
+| 4     | Terminé |              |            |       |
+| 5     | Terminé |              |            |       |
+| 6     | En cours |              |            | Implémentation de la sélection de modèle |
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)
 - [Guide Vue.js](https://vuejs.org/guide/introduction.html)
 - [API Anthropic](https://docs.anthropic.com/claude/reference/getting-started-with-the-api)
+- [Tarification Claude API](https://www.anthropic.com/pricing#api)
 - [Documentation Nginx](https://nginx.org/en/docs/)
 - [Documentation Gunicorn](https://docs.gunicorn.org/en/stable/)
 - [Optimisation Raspberry Pi](https://www.raspberrypi.org/documentation/computers/os.html)
