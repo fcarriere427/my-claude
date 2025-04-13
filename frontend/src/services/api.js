@@ -5,7 +5,7 @@ import axios from 'axios';
 
 // Création d'une instance axios avec la configuration de base
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api', // URL directe
+  baseURL: '/api',  // Utilise le proxy configuré dans vue.config.js
   timeout: 30000, // 30 secondes
   headers: {
     'Content-Type': 'application/json',
