@@ -115,6 +115,12 @@ my-claude/
 
 ## Bugs corrigés
 - [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025) - Modification du service backend pour éviter d'ajouter deux fois le même message dans l'historique
+- [x] Tri des modèles par coût croissant dans le sélecteur (13/04/2025) - Mise en place d'un tri automatique dans le backend
+
+## Améliorations réalisées
+- [x] Ajout des modèles Claude 3.5 Haiku et Claude 3.7 Sonnet (13/04/2025)
+- [x] Mise à jour des tarifs selon la tarification officielle d'Anthropic (13/04/2025)
+- [x] Tri des modèles par coût croissant pour faciliter la sélection du modèle le plus économique
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)

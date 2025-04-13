@@ -7,9 +7,25 @@
       @change="handleModelChange"
       :disabled="isLoading"
     >
-      <option v-for="model in models" :key="model.id" :value="model.id">
-        {{ model.name }} - {{ formatCost(model.pricing) }}
-      </option>
+      <optgroup label="Modèles courants">
+        <option 
+          v-for="model in currentModels" 
+          :key="model.id" 
+          :value="model.id"
+        >
+          {{ model.name }} - {{ formatCost(model.pricing) }}
+        </option>
+      </optgroup>
+      
+      <optgroup label="Modèles legacy">
+        <option 
+          v-for="model in legacyModels" 
+          :key="model.id" 
+          :value="model.id"
+        >
+          {{ model.name }} - {{ formatCost(model.pricing) }}
+        </option>
+      </optgroup>
     </select>
     <div class="model-description" v-if="selectedModel">
       {{ selectedModel.description }}
@@ -37,14 +53,21 @@ export default {
     selectedModel() {
       if (!this.selectedModelId) return null;
       return this.models.find(model => model.id === this.selectedModelId);
+    },
+    currentModels() {
+      return this.models.filter(model => model.current === true);
+    },
+    legacyModels() {
+      return this.models.filter(model => model.current === false);
     }
   },
   methods: {
     async loadModels() {
       try {
-        // Remplacer par votre service API pour charger les modèles
+        // Chargement des modèles depuis l'API
         const response = await this.$api.getModels();
         this.models = response.data.models;
+        // Note: Les modèles sont déjà triés par coût croissant par le backend
         
         // Sélectionner le premier modèle par défaut si aucun n'est sélectionné
         if (!this.selectedModelId && this.models.length > 0) {
@@ -60,7 +83,9 @@ export default {
       this.$emit('model-change', this.selectedModelId, this.selectedModel);
     },
     formatCost(pricing) {
-      return `${pricing.input}€/1M tokens entrée, ${pricing.output}€/1M tokens sortie`;
+      const inputCost = pricing.input.toFixed(2);
+      const outputCost = pricing.output.toFixed(2);
+      return `$${inputCost}/1M tokens entrée, $${outputCost}/1M tokens sortie`;
     }
   },
   mounted() {

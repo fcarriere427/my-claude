@@ -153,14 +153,22 @@ claude-rasp/
 
 ## Modèles Claude disponibles
 
-L'application supporte les modèles suivants avec leurs tarifs associés (en euros par million de tokens) :
+L'application supporte les modèles suivants avec leurs tarifs associés (en dollars par million de tokens) :
+
+### Modèles courants
 
 | Modèle | Prix entrée | Prix sortie | Description |
 |--------|-------------|-------------|-------------|
-| Claude 3 Opus | 15.00€ | 75.00€ | Modèle le plus puissant et le plus précis |
-| Claude 3 Sonnet | 7.50€ | 24.00€ | Bon équilibre entre performance et coût |
-| Claude 3 Haiku | 0.25€ | 1.25€ | Le plus rapide, économique pour les tâches simples |
-| Claude 3.5 Sonnet | 3.00€ | 15.00€ | Version améliorée de Sonnet |
+| Claude 3.5 Haiku | $0.80 | $4.00 | Le plus rapide et économique, idéal pour les applications à volume élevé |
+| Claude 3.5 Sonnet | $3.00 | $15.00 | Puissant et polyvalent, recommandé pour la plupart des cas d'usage |
+| Claude 3.7 Sonnet | $3.00 | $15.00 | Notre modèle le plus intelligent, avec capacités de raisonnement avancées |
+
+### Modèles legacy
+
+| Modèle | Prix entrée | Prix sortie | Description |
+|--------|-------------|-------------|-------------|
+| Claude 3 Haiku (Legacy) | $0.25 | $1.25 | Version précédente du modèle Haiku |
+| Claude 3 Opus (Legacy) | $15.00 | $75.00 | Ancien modèle, le plus puissant de la génération Claude 3 |
 
 ## Améliorations futures possibles
 
@@ -174,7 +182,12 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en eur
 ## Journal des correctifs
 
 ### 13 avril 2025
-- Correction du problème de duplication des messages utilisateur dans l'interface chat en évitant d'ajouter deux fois le même message dans l'historique du backend
+- Mise à jour de la liste des modèles Claude disponibles avec distinction entre modèles courants et legacy
+- Mise à jour des tarifs exacts selon la tarification officielle d'Anthropic (en dollars)
+- Ajout d'une fonction de regroupement des modèles dans le sélecteur (courants et legacy)
+- Tri des modèles Claude par statut (courants d'abord) puis par coût croissant
+- Amélioration du formatage des coûts dans l'interface utilisateur pour une meilleure lisibilité
+- Correction du problème de duplication des messages utilisateur dans l'interface chat
 
 ## Licence
 

@@ -7,43 +7,63 @@ from pydantic import BaseSettings
 from typing import Optional, Dict, List
 
 # Configuration des modèles Claude disponibles
+# Les modèles seront triés par coût croissant dans la classe Settings
 CLAUDE_MODELS = [
+    # Modèles courants
+    {
+        "id": "claude-3-7-sonnet-20240219",
+        "name": "Claude 3.7 Sonnet",
+        "description": "Notre modèle le plus intelligent, avec capacités de raisonnement avancées",
+        "pricing": {
+            "input": 3.00, # Dollars par million de tokens en entrée
+            "output": 15.00 # Dollars par million de tokens en sortie
+        },
+        "current": True
+    },
+
+    {
+        "id": "claude-3-5-haiku-20240307",
+        "name": "Claude 3.5 Haiku",
+        "description": "Le plus rapide et économique, idéal pour les applications à volume élevé",
+        "pricing": {
+            "input": 0.80,  
+            "output": 4.00   
+        },
+        "current": True
+    },
     {
         "id": "claude-3-opus-20240229",
-        "name": "Claude 3 Opus",
-        "description": "Modèle le plus puissant et le plus précis",
+        "name": "Claude 3 Opus (Legacy)",
+        "description": "Ancien modèle, le plus puissant de la génération Claude 3",
         "pricing": {
-            "input": 15.00,  # Euros par million de tokens en entrée
-            "output": 75.00  # Euros par million de tokens en sortie
-        }
+            "input": 15.00,
+            "output": 75.00
+        },
+        "current": True
     },
-    {
-        "id": "claude-3-sonnet-20240229",
-        "name": "Claude 3 Sonnet",
-        "description": "Bon équilibre entre performance et coût",
-        "pricing": {
-            "input": 7.50,
-            "output": 24.00
-        }
-    },
-    {
-        "id": "claude-3-haiku-20240307",
-        "name": "Claude 3 Haiku",
-        "description": "Le plus rapide, économique pour les tâches simples",
-        "pricing": {
-            "input": 0.25,
-            "output": 1.25
-        }
-    },
+    
+    # Modèles legacy
     {
         "id": "claude-3-5-sonnet-20240620",
-        "name": "Claude 3.5 Sonnet",
-        "description": "Version améliorée de Sonnet",
+        "name": "Claude 3.5 Sonnet (Legacy)",
+        "description": "Version précédente du modèle Sonnet",
         "pricing": {
             "input": 3.00,
             "output": 15.00
-        }
+        },
+        "current": False
+    },
+    {
+        "id": "claude-3-haiku-20240307",
+        "name": "Claude 3 Haiku (Legacy)",
+        "description": "Version précédente du modèle Haiku",
+        "pricing": {
+            "input": 0.25,
+            "output": 1.25
+        },
+        "current": False
     }
+    
 ]
 
 class Settings(BaseSettings):
@@ -52,7 +72,19 @@ class Settings(BaseSettings):
     # Configuration de l'API Anthropic
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
     CLAUDE_MODEL: str = os.getenv("CLAUDE_MODEL", "claude-3-haiku-20240307")
-    CLAUDE_MODELS: List[Dict] = CLAUDE_MODELS
+    
+    # Tri des modèles Claude par statut (courant d'abord) puis par coût croissant
+    @property
+    def CLAUDE_MODELS(self) -> List[Dict]:
+        # D'abord trier par statut (courant en premier), puis par coût
+        sorted_models = sorted(
+            CLAUDE_MODELS, 
+            key=lambda model: (
+                not model.get("current", True),  # Les modèles courants en premier (False en premier dans le tri)
+                model["pricing"]["input"] + model["pricing"]["output"]
+            )
+        )
+        return sorted_models
     
     # Configuration de l'application
     APP_NAME: str = "my-claude"
