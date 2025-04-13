@@ -115,7 +115,11 @@ class ClaudeService:
                 }
             
             # Mise à jour de l'historique
-            conversation_history.append(Message(role="user", content=message))
+            # Vérifier si le message de l'utilisateur est déjà le dernier message de l'historique
+            # pour éviter les doublons
+            if not conversation_history or conversation_history[-1].role != "user" or conversation_history[-1].content != message:
+                conversation_history.append(Message(role="user", content=message))
+            
             # Ajout du modèle utilisé dans la réponse
             conversation_history.append(Message(
                 role="assistant", 

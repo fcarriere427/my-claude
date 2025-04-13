@@ -114,7 +114,7 @@ my-claude/
 | 7     | En cours |              |            | Corrections de bugs d'interface |
 
 ## Bugs corrigés
-- [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025)
+- [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025) - Modification du service backend pour éviter d'ajouter deux fois le même message dans l'historique
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)

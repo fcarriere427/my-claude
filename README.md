@@ -174,7 +174,7 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en eur
 ## Journal des correctifs
 
 ### 13 avril 2025
-- Correction du problème de duplication des messages utilisateur dans l'interface chat
+- Correction du problème de duplication des messages utilisateur dans l'interface chat en évitant d'ajouter deux fois le même message dans l'historique du backend
 
 ## Licence
 
