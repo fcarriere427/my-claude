@@ -72,13 +72,22 @@ class ClaudeService:
             # Extraction de la réponse
             claude_response = response_data.get("content", [{}])[0].get("text", "")
             
+            # Extraction des informations d'utilisation des tokens
+            token_usage = None
+            if "usage" in response_data:
+                token_usage = {
+                    "input_tokens": response_data["usage"].get("input_tokens", 0),
+                    "output_tokens": response_data["usage"].get("output_tokens", 0)
+                }
+            
             # Mise à jour de l'historique
             conversation_history.append(Message(role="user", content=message))
             conversation_history.append(Message(role="assistant", content=claude_response))
             
             return {
                 "response": claude_response,
-                "conversation_history": conversation_history
+                "conversation_history": conversation_history,
+                "token_usage": token_usage
             }
 
 # Instance du service pour utilisation globale

@@ -12,6 +12,7 @@ Claude Rasp est un MVP (Minimum Viable Product) conçu pour permettre une conver
 - Conservation de l'historique de la conversation courante
 - Support de la mise en forme Markdown dans les réponses
 - Indicateur de chargement pendant le traitement des requêtes
+- Affichage du coût de chaque message (nombre de tokens en entrée/sortie)
 
 ## Architecture technique
 
@@ -154,6 +155,7 @@ claude-rasp/
 - Paramètres de conversation configurables
 - Support de différents modèles Claude
 - Interface responsive pour mobile
+- Statistiques d'utilisation et suivi des coûts
 
 ## Licence
 

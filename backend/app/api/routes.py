@@ -35,7 +35,8 @@ async def chat(request: ChatRequest):
         )
         return ChatResponse(
             response=result["response"],
-            conversation_history=result["conversation_history"]
+            conversation_history=result["conversation_history"],
+            token_usage=result.get("token_usage")
         )
     except Exception as e:
         # Log l'erreur ici si nécessaire

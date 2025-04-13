@@ -13,6 +13,11 @@
           <strong>{{ message.role === 'user' ? 'Vous' : 'Claude' }}</strong>
         </div>
         <div class="message-content" v-html="formatMessage(message.content)"></div>
+        <div v-if="message.role === 'assistant' && message.token_usage" class="message-footer">
+          <span class="token-usage">
+            Tokens: {{ message.token_usage.input_tokens }} en entrée / {{ message.token_usage.output_tokens }} en sortie
+          </span>
+        </div>
       </div>
       <div v-if="isLoading" class="message assistant loading">
         <div class="message-header">
@@ -134,6 +139,19 @@ export default {
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
   font-family: monospace;
+}
+
+.message-footer {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: right;
+}
+
+.token-usage {
+  background-color: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .empty-state {

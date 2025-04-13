@@ -84,6 +84,7 @@ my-claude/
 - [ ] Effectuer des tests approfondis
 - [ ] Documenter le processus complet
 - [ ] Préparer des scripts de maintenance
+- [ ] Ajouter l'affichage du coût des messages (nombre de tokens en entrée/sortie)
 
 ## Bonnes pratiques à respecter
 - Utiliser le typage avec Python (type hints)

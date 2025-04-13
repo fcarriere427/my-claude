@@ -56,8 +56,18 @@ export default {
         // Envoyer la requête à l'API
         const response = await api.sendMessage(message, this.messages);
         
-        // Mettre à jour l'historique des messages
-        this.messages = response.data.conversation_history;
+        // Mettre à jour l'historique des messages avec les informations de coût
+        const updatedHistory = response.data.conversation_history;
+        
+        // Ajouter les informations de token_usage au dernier message assistant
+        if (response.data.token_usage) {
+          const lastAssistantMessage = updatedHistory.filter(msg => msg.role === 'assistant').pop();
+          if (lastAssistantMessage) {
+            lastAssistantMessage.token_usage = response.data.token_usage;
+          }
+        }
+        
+        this.messages = updatedHistory;
       } catch (error) {
         console.error('Erreur lors de l\'envoi du message:', error);
         
