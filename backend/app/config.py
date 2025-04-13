@@ -11,7 +11,7 @@ from typing import Optional, Dict, List
 CLAUDE_MODELS = [
     # Modèles courants
     {
-        "id": "claude-3-7-sonnet-20240219",
+        "id": "claude-3-7-sonnet-latest",
         "name": "Claude 3.7 Sonnet",
         "description": "Notre modèle le plus intelligent, avec capacités de raisonnement avancées",
         "pricing": {
@@ -22,7 +22,7 @@ CLAUDE_MODELS = [
     },
 
     {
-        "id": "claude-3-5-haiku-20240307",
+        "id": "claude-3-5-haiku-latest",
         "name": "Claude 3.5 Haiku",
         "description": "Le plus rapide et économique, idéal pour les applications à volume élevé",
         "pricing": {
@@ -32,7 +32,7 @@ CLAUDE_MODELS = [
         "current": True
     },
     {
-        "id": "claude-3-opus-20240229",
+        "id": "claude-3-opus-latest",
         "name": "Claude 3 Opus",
         "description": "Modèle puissant pour les tâches complexes (/!\ très cher)",
         "pricing": {
@@ -44,7 +44,7 @@ CLAUDE_MODELS = [
     
     # Modèles legacy
     {
-        "id": "claude-3-5-sonnet-20240620",
+        "id": "claude-3-5-sonnet-latest",
         "name": "Claude 3.5 Sonnet (Legacy)",
         "description": "Version précédente du modèle Sonnet",
         "pricing": {
