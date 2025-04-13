@@ -15,6 +15,7 @@ Claude Rasp est un MVP (Minimum Viable Product) conçu pour permettre une conver
 - Affichage du coût de chaque message (nombre de tokens en entrée/sortie)
 - Sélection du modèle Claude à utiliser (Claude 3 Opus, Sonnet, Haiku, etc.)
 - Calcul des coûts adaptés selon le modèle sélectionné
+- Tri des modèles par statut (courants/legacy) et par coût croissant
 
 ## Architecture technique
 
@@ -163,13 +164,30 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en dol
 | Claude 3.5 Haiku | $0.80 | $4.00 | Le plus rapide et économique, idéal pour les applications à volume élevé |
 | Claude 3.5 Sonnet | $3.00 | $15.00 | Puissant et polyvalent, recommandé pour la plupart des cas d'usage |
 | Claude 3.7 Sonnet | $3.00 | $15.00 | Notre modèle le plus intelligent, avec capacités de raisonnement avancées |
+| Claude 3 Opus | $15.00 | $75.00 | Modèle très puissant pour les tâches complexes (/!\ coût élevé) |
 
 ### Modèles legacy
 
 | Modèle | Prix entrée | Prix sortie | Description |
 |--------|-------------|-------------|-------------|
 | Claude 3 Haiku (Legacy) | $0.25 | $1.25 | Version précédente du modèle Haiku |
-| Claude 3 Opus (Legacy) | $15.00 | $75.00 | Ancien modèle, le plus puissant de la génération Claude 3 |
+| Claude 3.5 Sonnet (Legacy) | $3.00 | $15.00 | Version précédente du modèle Sonnet |
+
+## Résolution des problèmes courants
+
+### Erreur de connexion à l'API
+
+Si vous rencontrez l'erreur "Erreur lors de la communication avec Claude", vérifiez les points suivants :
+1. Votre clé API Anthropic est correctement configurée dans le fichier `.env` du backend
+2. Le service backend est bien démarré et accessible
+3. Vous avez une connexion Internet fonctionnelle
+
+### Pas de modèles dans le menu déroulant
+
+Si le menu déroulant des modèles est vide :
+1. Vérifiez que le backend répond correctement à l'endpoint `/models`
+2. Consultez les logs du serveur backend pour identifier d'éventuelles erreurs
+3. Actualisez la page pour recharger les données
 
 ## Améliorations futures possibles
 
@@ -179,6 +197,8 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en dol
 - Interface responsive pour mobile
 - Statistiques d'utilisation par modèle
 - Sauvegarde du modèle préféré pour les futures sessions
+- Thème sombre/clair
+- Export des conversations
 
 ## Journal des correctifs
 
@@ -191,6 +211,7 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en dol
 - Correction du problème de duplication des messages utilisateur dans l'interface chat
 - Correction du script de déploiement qui ne se terminait pas correctement
 - Ajout d'un script de déploiement global avec gestion des erreurs
+- Amélioration de la gestion des erreurs dans l'interface utilisateur
 
 ## Licence
 

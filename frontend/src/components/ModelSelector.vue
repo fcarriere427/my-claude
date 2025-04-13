@@ -44,7 +44,7 @@ export default {
       models: [],
       selectedModelId: null,
       error: null,
-      debug: true // Activer temporairement pour le débogage
+      debug: false // Activer temporairement pour le débogage
     };
   },
   computed: {

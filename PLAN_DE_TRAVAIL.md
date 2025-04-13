@@ -100,6 +100,13 @@ my-claude/
 - [ ] Amélioration des scripts de surveillance et monitoring
 - [ ] Mise en place d'un système de logs centralisé
 - [ ] Automatisation des sauvegardes
+- [ ] Ajout d'un script de diagnostic pour résoudre les problèmes courants
+
+### Étape 8: Améliorations UX et nouvelles fonctionnalités (Semaine 7)
+- [ ] Implémenter le thème sombre/clair avec toggle
+- [ ] Ajouter la fonctionnalité d'export de conversation (PDF/Markdown)
+- [ ] Ajouter une page d'aide et de documentation utilisateur
+- [ ] Optimiser l'interface pour mobile
 
 ## Bonnes pratiques à respecter
 - Utiliser le typage avec Python (type hints)
@@ -119,6 +126,7 @@ my-claude/
 | 5     | Terminé |              |            |       |
 | 6     | En cours |              |            | Implémentation de la sélection de modèle |
 | 7     | En cours | 13/04/2025   |            | Correction des scripts de déploiement |
+| 8     | À faire | 14/04/2025   |            | Améliorations UX |
 
 ## Bugs corrigés
 - [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025) - Modification du service backend pour éviter d'ajouter deux fois le même message dans l'historique
@@ -126,6 +134,7 @@ my-claude/
 - [x] Correction de l'affichage du sélecteur de modèles (13/04/2025) - Modification de l'interface pour afficher tous les modèles dans une seule liste au lieu d'utiliser des optgroup
 - [x] Correction du problème d'absence de modèles dans le menu déroulant (13/04/2025) - Ajout de la propriété `current` dans le modèle Pydantic `ModelInfo` et dans la sérialisation API
 - [x] Correction du script de déploiement qui ne se terminait pas (13/04/2025) - Création d'un script global avec meilleure gestion des erreurs et statut du service
+- [x] Correction du problème d'affichage des erreurs API (13/04/2025) - Amélioration de la gestion des erreurs dans le composant frontend
 
 ## Améliorations réalisées
 - [x] Ajout des modèles Claude 3.5 Haiku et Claude 3.7 Sonnet (13/04/2025)
@@ -133,12 +142,15 @@ my-claude/
 - [x] Tri des modèles par coût croissant pour faciliter la sélection du modèle le plus économique
 - [x] Simplification de l'interface de sélection des modèles pour améliorer l'expérience utilisateur (13/04/2025)
 - [x] Mise en place d'un script de déploiement global robuste avec gestion des erreurs (13/04/2025)
+- [x] Ajout d'un indicateur de chargement plus visible pendant le traitement des requêtes (13/04/2025)
 
 ## Améliorations planifiées
 - [ ] Mise en place d'une fonctionnalité de sauvegarde du modèle préféré (cookie/localStorage)
 - [ ] Ajout d'un tableau de bord de statistiques (utilisation par modèle, coûts cumulés)
 - [ ] Implémentation d'un système de thèmes (clair/sombre)
 - [ ] Support pour les pièces jointes et les images (via l'API Claude)
+- [ ] Script de diagnostics pour identifier et résoudre rapidement les problèmes courants
+- [ ] Documentation utilisateur accessible depuis l'interface
 
 ## Ressources et références
 - [Documentation FastAPI](https://fastapi.tiangolo.com/)
