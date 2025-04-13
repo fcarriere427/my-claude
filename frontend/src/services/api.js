@@ -12,8 +12,9 @@ const api = axios.create({
   },
 });
 
-// Variable pour stocker les modèles et leurs tarifs
+// Variables pour stocker les modèles et leurs tarifs
 let cachedModels = null;
+let usdToEurRate = 0.913; // Taux par défaut (13 avril 2025)
 
 /**
  * Service pour interagir avec l'API backend
@@ -33,15 +34,30 @@ export default {
    */
   async getModels() {
     if (cachedModels) {
-      console.log('Utilisation du cache de modèles:', cachedModels);
+      console.log('Utilisation du cache de modèles');
       return { data: cachedModels };
     }
     
     console.log('Récupération des modèles depuis l\'API...');
     const response = await api.get('/models');
     console.log('Réponse API des modèles:', response.data);
+    
+    // Stocker le taux de change dans la variable globale
+    if (response.data && response.data.usd_to_eur_rate) {
+      usdToEurRate = response.data.usd_to_eur_rate;
+      console.log(`Taux de change USD/EUR: ${usdToEurRate}`);
+    }
+    
     cachedModels = response.data;
     return response;
+  },
+  
+  /**
+   * Récupérer le taux de conversion USD/EUR actuel
+   * @returns {number} Taux de conversion
+   */
+  getUsdToEurRate() {
+    return usdToEurRate;
   },
 
   /**
@@ -67,22 +83,29 @@ export default {
  * @param {number} inputTokens - Nombre de tokens en entrée
  * @param {number} outputTokens - Nombre de tokens en sortie
  * @param {Object} modelPricing - Tarifs du modèle (input/output)
- * @returns {Object} Coûts calculés
+ * @returns {Object} Coûts calculés en euros
  */
 export const calculateCost = (inputTokens, outputTokens, modelPricing) => {
   // Utilisation des tarifs par défaut si non fournis
   const pricing = modelPricing || {
-    input: 0.25,  // Prix par défaut pour Claude 3 Haiku
-    output: 1.25
+    input: 0.80,  // Prix par défaut pour Claude 3.5 Haiku (en dollars)
+    output: 4.00
   };
   
-  const inputCost = (inputTokens / 1000000) * pricing.input;
-  const outputCost = (outputTokens / 1000000) * pricing.output;
+  // Calculer le coût en dollars
+  const inputCostUsd = (inputTokens / 1000000) * pricing.input;
+  const outputCostUsd = (outputTokens / 1000000) * pricing.output;
+  const totalCostUsd = inputCostUsd + outputCostUsd;
+  
+  // Convertir les coûts en euros
+  const inputCostEur = inputCostUsd * usdToEurRate;
+  const outputCostEur = outputCostUsd * usdToEurRate;
+  const totalCostEur = totalCostUsd * usdToEurRate;
   
   return {
-    inputCost: parseFloat(inputCost.toFixed(6)),
-    outputCost: parseFloat(outputCost.toFixed(6)),
-    totalCost: parseFloat((inputCost + outputCost).toFixed(6))
+    inputCost: parseFloat(inputCostEur.toFixed(6)),
+    outputCost: parseFloat(outputCostEur.toFixed(6)),
+    totalCost: parseFloat(totalCostEur.toFixed(6))
   };
 };
 

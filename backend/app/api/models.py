@@ -52,3 +52,5 @@ class HealthCheck(BaseModel):
 class ModelsResponse(BaseModel):
     """Modèle pour la réponse de la liste des modèles disponibles."""
     models: List[ModelInfo] = Field(..., description="Liste des modèles Claude disponibles")
+    usd_to_eur_rate: float = Field(..., description="Taux de conversion USD vers EUR")
+    rate_updated_at: Optional[datetime] = Field(None, description="Date de dernière mise à jour du taux de change")

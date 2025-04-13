@@ -100,7 +100,15 @@ export default {
     formatCost(pricing) {
       const inputCost = pricing.input.toFixed(2);
       const outputCost = pricing.output.toFixed(2);
-      return `$${inputCost}/1M tokens entrée, $${outputCost}/1M tokens sortie`;
+      
+      // Obtenir le taux de conversion
+      const rate = this.$api.getUsdToEurRate();
+      
+      // Calculer les coûts en euros
+      const inputCostEur = (pricing.input * rate).toFixed(2);
+      const outputCostEur = (pricing.output * rate).toFixed(2);
+      
+      return `${inputCost} (${inputCostEur}€)/1M tokens entrée, ${outputCost} (${outputCostEur}€)/1M tokens sortie`;
     }
   },
   mounted() {

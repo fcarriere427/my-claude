@@ -43,7 +43,7 @@
       <MessageInput :isLoading="isLoading" @send-message="sendMessage" />
     </main>
     <footer>
-      <p>Powered by Anthropic Claude API</p>
+      <p>Powered by Anthropic Claude API | Taux de change USD/EUR: {{ exchangeRate.toFixed(4) }}</p>
     </footer>
   </div>
 </template>
@@ -75,7 +75,8 @@ export default {
         totalCost: 0
       },
       selectedModel: null,
-      models: []
+      models: [],
+      exchangeRate: 0.913 // Taux de change par défaut
     };
   },
   mounted() {
@@ -90,6 +91,18 @@ export default {
       .catch(error => {
         console.error('Erreur de connexion à l\'API:', error);
         alert('Impossible de se connecter à l\'API. Veuillez vérifier que le backend est en cours d\'exécution.');
+      });
+      
+    // Charger les modèles et récupérer le taux de change
+    api.getModels()
+      .then(response => {
+        if (response.data && response.data.usd_to_eur_rate) {
+          this.exchangeRate = response.data.usd_to_eur_rate;
+          console.log(`Taux de change USD/EUR défini dans App: ${this.exchangeRate}`);
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement des modèles:', error);
       });
   },
   methods: {

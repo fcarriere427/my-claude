@@ -6,6 +6,10 @@ import os
 from pydantic import BaseSettings
 from typing import Optional, Dict, List
 
+# Configuration pour la conversion dollar/euro
+USD_TO_EUR_RATE = 0.913  # Taux de conversion par défaut (13 avril 2025)
+LAST_RATE_UPDATE = None  # Sera mis à jour lors de la première requête
+
 # Configuration des modèles Claude disponibles
 # Les modèles seront triés par coût croissant dans la classe Settings
 CLAUDE_MODELS = [

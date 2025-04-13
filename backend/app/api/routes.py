@@ -4,6 +4,7 @@ Définit les endpoints pour interagir avec Claude.
 """
 from fastapi import APIRouter, HTTPException
 from ..services.claude import claude_service
+from ..services.currency import currency_service
 from ..config import settings
 from .models import ChatRequest, ChatResponse, HealthCheck, ModelsResponse, ModelInfo, ModelPricing
 
@@ -23,8 +24,11 @@ async def get_models():
     Récupère la liste des modèles Claude disponibles.
     
     Returns:
-        Liste des modèles avec leurs informations
+        Liste des modèles avec leurs informations et le taux de conversion USD->EUR
     """
+    # Récupérer le taux de conversion USD->EUR
+    usd_to_eur_rate = await currency_service.get_exchange_rate()
+    
     models = []
     for model_data in claude_service.get_available_models():
         models.append(ModelInfo(
@@ -38,7 +42,11 @@ async def get_models():
             current=model_data.get("current", True)  # Par défaut à True si non spécifié
         ))
     
-    return ModelsResponse(models=models)
+    return ModelsResponse(
+        models=models,
+        usd_to_eur_rate=usd_to_eur_rate,
+        rate_updated_at=currency_service.last_update
+    )
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
