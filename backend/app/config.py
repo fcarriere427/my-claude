@@ -3,7 +3,7 @@ Configuration de l'application.
 Gère les variables d'environnement et les paramètres de configuration.
 """
 import os
-from pydantic_settings import BaseSettings
+from pydantic import BaseSettings
 from typing import Optional
 
 class Settings(BaseSettings):
