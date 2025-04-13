@@ -16,6 +16,20 @@
           <span class="token-counter-value">{{ totalTokenUsage.output_tokens }}</span>
         </div>
       </div>
+      <div v-if="totalCost.totalCost > 0" class="cost-counter">
+        <div class="cost-counter-item">
+          <span class="cost-counter-label">Coût total: </span>
+          <span class="cost-counter-value">{{ totalCost.totalCost.toFixed(4) }}€</span>
+        </div>
+        <div class="cost-counter-item">
+          <span class="cost-counter-label">Entrée: </span>
+          <span class="cost-counter-value">{{ totalCost.inputCost.toFixed(4) }}€</span>
+        </div>
+        <div class="cost-counter-item">
+          <span class="cost-counter-label">Sortie: </span>
+          <span class="cost-counter-value">{{ totalCost.outputCost.toFixed(4) }}€</span>
+        </div>
+      </div>
     </header>
     <main>
       <ChatWindow :messages="messages" :isLoading="isLoading" />
@@ -30,7 +44,7 @@
 <script>
 import ChatWindow from './components/ChatWindow.vue';
 import MessageInput from './components/MessageInput.vue';
-import api from './services/api';
+import api, { calculateCost } from './services/api';
 
 export default {
   name: 'App',
@@ -45,6 +59,11 @@ export default {
       totalTokenUsage: {
         input_tokens: 0,
         output_tokens: 0
+      },
+      totalCost: {
+        inputCost: 0,
+        outputCost: 0,
+        totalCost: 0
       }
     };
   },
@@ -83,9 +102,21 @@ export default {
           if (lastAssistantMessage) {
             lastAssistantMessage.token_usage = response.data.token_usage;
             
+            // Calculer le coût en euros
+            const messageCost = calculateCost(
+              response.data.token_usage.input_tokens,
+              response.data.token_usage.output_tokens
+            );
+            lastAssistantMessage.cost = messageCost;
+            
             // Mettre à jour le compteur total
             this.totalTokenUsage.input_tokens += response.data.token_usage.input_tokens;
             this.totalTokenUsage.output_tokens += response.data.token_usage.output_tokens;
+            
+            // Mettre à jour le coût total
+            this.totalCost.inputCost += messageCost.inputCost;
+            this.totalCost.outputCost += messageCost.outputCost;
+            this.totalCost.totalCost += messageCost.totalCost;
           }
         }
         
@@ -141,7 +172,7 @@ header {
   align-items: center;
 }
 
-.token-counter {
+.token-counter, .cost-counter {
   margin-top: 0.5rem;
   font-size: 0.8rem;
   background-color: rgba(255, 255, 255, 0.2);
@@ -151,17 +182,22 @@ header {
   gap: 1rem;
 }
 
-.token-counter-item {
+.cost-counter {
+  margin-top: 0.25rem;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.token-counter-item, .cost-counter-item {
   display: flex;
   align-items: center;
 }
 
-.token-counter-label {
+.token-counter-label, .cost-counter-label {
   margin-right: 0.3rem;
   opacity: 0.8;
 }
 
-.token-counter-value {
+.token-counter-value, .cost-counter-value {
   font-weight: bold;
 }
 

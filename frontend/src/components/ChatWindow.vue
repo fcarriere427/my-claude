@@ -17,6 +17,9 @@
           <span class="token-usage">
             Tokens: {{ message.token_usage.input_tokens }} en entrée / {{ message.token_usage.output_tokens }} en sortie
           </span>
+          <span v-if="message.cost" class="cost-usage">
+            Coût: {{ message.cost.totalCost.toFixed(4) }}€
+          </span>
         </div>
       </div>
       <div v-if="isLoading" class="message assistant loading">
@@ -37,6 +40,7 @@
 
 <script>
 import { marked } from 'marked';
+import { calculateCost } from '../services/api';
 
 export default {
   name: 'ChatWindow',
@@ -146,12 +150,19 @@ export default {
   font-size: 0.8rem;
   color: #888;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.token-usage {
+.token-usage, .cost-usage {
   background-color: #f0f0f0;
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+.cost-usage {
+  background-color: #f0f8ff;
 }
 
 .empty-state {

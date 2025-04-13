@@ -3,6 +3,23 @@
  */
 import axios from 'axios';
 
+// Configuration des prix des tokens (en euros par million de tokens)
+export const TOKEN_PRICING = {
+  input: 3, // 3€ par million de tokens en entrée
+  output: 15 // 15€ par million de tokens en sortie
+};
+
+// Fonction utilitaire pour calculer le coût en euros
+export const calculateCost = (inputTokens, outputTokens) => {
+  const inputCost = (inputTokens / 1000000) * TOKEN_PRICING.input;
+  const outputCost = (outputTokens / 1000000) * TOKEN_PRICING.output;
+  return {
+    inputCost: parseFloat(inputCost.toFixed(6)),
+    outputCost: parseFloat(outputCost.toFixed(6)),
+    totalCost: parseFloat((inputCost + outputCost).toFixed(6))
+  };
+};
+
 // Création d'une instance axios avec la configuration de base
 const api = axios.create({
   baseURL: '/api',  // Utilise le proxy configuré dans vue.config.js
