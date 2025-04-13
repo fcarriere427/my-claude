@@ -182,10 +182,10 @@ L'application supporte les modèles suivants avec leurs tarifs associés (en dol
 ## Journal des correctifs
 
 ### 13 avril 2025
-- Mise à jour de la liste des modèles Claude disponibles avec distinction entre modèles courants et legacy
+- Mise à jour de la liste des modèles Claude disponibles avec tous les modèles dans une seule liste
 - Mise à jour des tarifs exacts selon la tarification officielle d'Anthropic (en dollars)
-- Ajout d'une fonction de regroupement des modèles dans le sélecteur (courants et legacy)
-- Tri des modèles Claude par statut (courants d'abord) puis par coût croissant
+- Simplification de l'interface du sélecteur de modèles pour une meilleure visibilité des options
+- Tri des modèles Claude par statut (courants d'abord) puis par coût croissant pour faciliter la sélection
 - Amélioration du formatage des coûts dans l'interface utilisateur pour une meilleure lisibilité
 - Correction du problème de duplication des messages utilisateur dans l'interface chat
 

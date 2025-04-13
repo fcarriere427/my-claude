@@ -34,7 +34,7 @@ CLAUDE_MODELS = [
     {
         "id": "claude-3-opus-20240229",
         "name": "Claude 3 Opus (Legacy)",
-        "description": "Ancien modèle, le plus puissant de la génération Claude 3",
+        "description": "Modèle puissant pour les tâches complexes (/!\ très cher)",
         "pricing": {
             "input": 15.00,
             "output": 75.00

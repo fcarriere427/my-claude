@@ -7,25 +7,13 @@
       @change="handleModelChange"
       :disabled="isLoading"
     >
-      <optgroup label="Modèles courants">
-        <option 
-          v-for="model in currentModels" 
-          :key="model.id" 
-          :value="model.id"
-        >
-          {{ model.name }} - {{ formatCost(model.pricing) }}
-        </option>
-      </optgroup>
-      
-      <optgroup label="Modèles legacy">
-        <option 
-          v-for="model in legacyModels" 
-          :key="model.id" 
-          :value="model.id"
-        >
-          {{ model.name }} - {{ formatCost(model.pricing) }}
-        </option>
-      </optgroup>
+      <option 
+        v-for="model in sortedModels" 
+        :key="model.id" 
+        :value="model.id"
+      >
+        {{ model.name }} - {{ formatCost(model.pricing) }}
+      </option>
     </select>
     <div class="model-description" v-if="selectedModel">
       {{ selectedModel.description }}
@@ -54,11 +42,18 @@ export default {
       if (!this.selectedModelId) return null;
       return this.models.find(model => model.id === this.selectedModelId);
     },
-    currentModels() {
-      return this.models.filter(model => model.current === true);
-    },
-    legacyModels() {
-      return this.models.filter(model => model.current === false);
+    sortedModels() {
+      // Trier d'abord les modèles courants par coût croissant, puis les modèles legacy par coût croissant
+      const currentModels = this.models
+        .filter(model => model.current === true)
+        .sort((a, b) => (a.pricing.input + a.pricing.output) - (b.pricing.input + b.pricing.output));
+      
+      const legacyModels = this.models
+        .filter(model => model.current === false)
+        .sort((a, b) => (a.pricing.input + a.pricing.output) - (b.pricing.input + b.pricing.output));
+      
+      // Concaténer les deux listes triées
+      return [...currentModels, ...legacyModels];
     }
   },
   methods: {
