@@ -27,6 +27,7 @@ echo "3. Déploiement du backend..."
 echo "-------------------------------------"
 cd ./backend || { echo "Erreur: Répertoire backend non trouvé"; exit 1; }
 # Installation des dépendances Python si nécessaire
+source .venv/bin/activate
 pip install -r requirements.txt || { echo "Erreur lors de l'installation des dépendances backend"; exit 1; }
 # Redémarrage du service
 sudo systemctl restart my-claude.service || { echo "Erreur lors du redémarrage du service"; exit 1; }
