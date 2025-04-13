@@ -40,7 +40,6 @@
 
 <script>
 import { marked } from 'marked';
-import { calculateCost } from '../services/api';
 
 export default {
   name: 'ChatWindow',
