@@ -33,10 +33,13 @@ export default {
    */
   async getModels() {
     if (cachedModels) {
+      console.log('Utilisation du cache de modèles:', cachedModels);
       return { data: cachedModels };
     }
     
+    console.log('Récupération des modèles depuis l\'API...');
     const response = await api.get('/models');
+    console.log('Réponse API des modèles:', response.data);
     cachedModels = response.data;
     return response;
   },

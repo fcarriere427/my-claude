@@ -24,6 +24,7 @@ class ModelInfo(BaseModel):
     name: str = Field(..., description="Nom convivial du modèle")
     description: str = Field(..., description="Description du modèle")
     pricing: ModelPricing = Field(..., description="Tarifs du modèle")
+    current: bool = Field(True, description="Indique si le modèle est un modèle courant ou legacy")
 
 class ChatRequest(BaseModel):
     """Modèle pour une requête de chat."""

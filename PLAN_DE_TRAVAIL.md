@@ -117,6 +117,7 @@ my-claude/
 - [x] Correction du problème de duplication des messages utilisateur dans l'interface (13/04/2025) - Modification du service backend pour éviter d'ajouter deux fois le même message dans l'historique
 - [x] Tri des modèles par coût croissant dans le sélecteur (13/04/2025) - Mise en place d'un tri automatique dans le backend
 - [x] Correction de l'affichage du sélecteur de modèles (13/04/2025) - Modification de l'interface pour afficher tous les modèles dans une seule liste au lieu d'utiliser des optgroup
+- [x] Correction du problème d'absence de modèles dans le menu déroulant (13/04/2025) - Ajout de la propriété `current` dans le modèle Pydantic `ModelInfo` et dans la sérialisation API
 
 ## Améliorations réalisées
 - [x] Ajout des modèles Claude 3.5 Haiku et Claude 3.7 Sonnet (13/04/2025)

@@ -34,7 +34,8 @@ async def get_models():
             pricing=ModelPricing(
                 input=model_data["pricing"]["input"],
                 output=model_data["pricing"]["output"]
-            )
+            ),
+            current=model_data.get("current", True)  # Par défaut à True si non spécifié
         ))
     
     return ModelsResponse(models=models)
