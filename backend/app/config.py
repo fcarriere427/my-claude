@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     CLAUDE_MODEL: str = os.getenv("CLAUDE_MODEL", "claude-3-haiku-20240307")
     
     # Configuration de l'application
-    APP_NAME: str = "Claude Rasp"
+    APP_NAME: str = "my-claude"
     APP_VERSION: str = "0.1.0"
     APP_DESCRIPTION: str = "Interface web simple pour converser avec Claude via l'API Anthropic"
     

@@ -2,7 +2,7 @@
   <div class="chat-window">
     <div class="messages" ref="messagesContainer">
       <div v-if="messages.length === 0" class="empty-state">
-        <p>👋 Bonjour! Je suis Claude. Comment puis-je vous aider aujourd'hui?</p>
+        <p>👋 Bonjour ! Je suis my-claude : comment puis-je vous aider aujourd'hui ?</p>
       </div>
       <div
         v-for="(message, index) in messages"

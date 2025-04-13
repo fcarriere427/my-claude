@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <header>
-      <h1>Claude Rasp</h1>
+      <h1>my-claude</h1>
       <div v-if="totalTokenUsage.input_tokens > 0 || totalTokenUsage.output_tokens > 0" class="token-counter">
         <div class="token-counter-item">
           <span class="token-counter-label">Total Tokens: </span>
@@ -36,7 +36,7 @@
       <MessageInput :isLoading="isLoading" @send-message="sendMessage" />
     </main>
     <footer>
-      <p>Powered by Claude API</p>
+      <p>Powered by Anthropic Claude API</p>
     </footer>
   </div>
 </template>
