@@ -52,6 +52,8 @@ export default {
    * @returns {Promise} Réponse et historique mis à jour
    */
   sendMessage(message, conversationHistory = [], modelId = null) {
+    console.log("Envoi de requête avec modelId:", modelId);
+    console.log("Type de modelId:", typeof modelId);
     return api.post('/chat', {
       message,
       conversation_history: conversationHistory,
